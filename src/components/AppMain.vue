@@ -38,7 +38,7 @@ export default {
         <div class="card-number bg-dark text-light p-3 fw-bold">
           Found {{ cardList.length }} cards
         </div>
-        <div class="card-container bg-danger">
+        <div class="card-container">
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5">
             
             <div class="col text-center" v-for="card in cardList">

@@ -22,13 +22,13 @@ export default {
             <img class="img-fluid" :src="card.card_images[0].image_url" :alt="card.name">
         </div>
 
-        <div class="card-info">
-            <h4 class="title">
+        <div class="card-info bg-warning p-2 mb-3" style="height: 100px">
+            <h6 class="title text-uppercase text-light">
                 {{ card.name }}
-            </h4>
-            <h5 class="card-type">
+            </h6>
+            <span class="card-type">
                 {{ card.archetype }}
-            </h5>
+            </span>
         </div>
 
     </div>
