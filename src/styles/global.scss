@@ -2,8 +2,3 @@
 @use "./partials/appMain.scss" as *;
 @use "./partials/appFooter.scss" as *;
 @import "node_modules/bootstrap/scss/bootstrap";
-
-body {
-    height: 100vh;
-    background-color: red;
-}
