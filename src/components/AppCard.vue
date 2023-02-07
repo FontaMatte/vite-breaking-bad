@@ -6,11 +6,6 @@ export default {
   props: {
     card: Object
   },
-  data() {
-    return {
-
-    };
-  },
 }
 </script>
 
@@ -22,7 +17,7 @@ export default {
             <img class="img-fluid" :src="card.card_images[0].image_url" :alt="card.name">
         </div>
 
-        <div class="card-info bg-warning p-2 mb-3" style="height: 100px">
+        <div class="card-info bg-warning p-2 mb-3 d-flex flex-column" style="height: 100px">
             <h6 class="title text-uppercase text-light">
                 {{ card.name }}
             </h6>
