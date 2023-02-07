@@ -16,24 +16,43 @@ export default {
     AppCard,
     AppLoader
   },
+  methods: {
+
+    // FUNZIONE PER FILTRARE LE CARTE
+    getCards() {
+      axios
+
+        .get('https://db.ygoprodeck.com/api/v7/cardinfo.php', {
+          params: {
+            archetype: this.store.selectValue
+          }
+        })
+        .then((response) => {
+
+          this.store.cardsList = response.data.data.slice(0,50);
+    
+        });
+    }
+  },
   created() {
+   
+    // RICHIAMO LA LISTA DELLE CARTE
     axios
 
-      .get('https://db.ygoprodeck.com/api/v7/cardinfo.php')
-      .then((response) => {
-        console.log(response.data.data.slice(0,50));
+        .get('https://db.ygoprodeck.com/api/v7/cardinfo.php')
+        .then((response) => {
 
-        this.store.cardsList = response.data.data.slice(0,50);
+          this.store.cardsList = response.data.data.slice(0,50);
 
-        this.store.loading = false;
-
-      });
-
+          this.store.loading = false;
+    
+        });
+    
+    // RICHIAMO LA LISTA DEGLI ARCHETYPE
     axios
 
       .get('https://db.ygoprodeck.com/api/v7/archetypes.php')
       .then((response) => {
-        console.log(response.data);
 
         this.store.archetypesList = response.data;
 
@@ -52,12 +71,13 @@ export default {
           <!-- SELECT -->
           <select class="form-select w-80 mx-3" 
             aria-label="type select"
-            v-model="store.selectValue">
+            v-model="store.selectValue"
+            @change="getCards()">
             <option selected value="">Select Archetype</option>
-            <option value="1" @click="" v-for="archetype in store.archetypesList">
+            <option :value="archetype.archetype_name" v-for="archetype in store.archetypesList">
               {{ archetype.archetype_name }}
             </option>
-
+            
           </select>
 
         </div>
