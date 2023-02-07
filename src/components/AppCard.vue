@@ -18,10 +18,10 @@ export default {
         </div>
 
         <div class="card-info bg-warning p-2 mb-3 d-flex flex-column" style="height: 100px">
-            <h6 class="title text-uppercase text-light">
+            <span class="title text-uppercase text-light" style="font-size: 14px;">
                 {{ card.name }}
-            </h6>
-            <span class="card-type">
+            </span>
+            <span class="card-type" style="font-size: 12px;">
                 {{ card.archetype }}
             </span>
         </div>

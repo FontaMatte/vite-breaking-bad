@@ -1,4 +1,5 @@
 <script>
+import axios from 'axios';
 import AppLoader from './AppLoader.vue'
 import AppCard from './AppCard.vue';
 import { store } from '../store.js';
@@ -14,6 +15,29 @@ export default {
   components: {
     AppCard,
     AppLoader
+  },
+  created() {
+    axios
+
+      .get('https://db.ygoprodeck.com/api/v7/cardinfo.php')
+      .then((response) => {
+        console.log(response.data.data.slice(0,50));
+
+        this.store.cardsList = response.data.data.slice(0,50);
+
+        this.store.loading = false;
+
+      });
+
+    axios
+
+      .get('https://db.ygoprodeck.com/api/v7/archetypes.php')
+      .then((response) => {
+        console.log(response.data);
+
+        this.store.archetypesList = response.data;
+
+      });
   }
 }
 </script>
@@ -24,18 +48,25 @@ export default {
     <div class="container py-3">
       <div class="row">
         <div class="col-3">
-          <select class="form-select w-80 mx-3" aria-label="type select">
-            <option selected>Alien</option>
-            <option value="1">Option One</option>
-            <option value="2">Option Two</option>
-            <option value="3">Option Three</option>
+
+          <!-- SELECT -->
+          <select class="form-select w-80 mx-3" 
+            aria-label="type select"
+            v-model="store.selectValue">
+            <option selected value="">Select Archetype</option>
+            <option value="1" @click="" v-for="archetype in store.archetypesList">
+              {{ archetype.archetype_name }}
+            </option>
+
           </select>
+
         </div>
       </div>
       <div class="mt-3 bg-light p-4">
         <div class="card-number bg-dark text-light p-3 fw-bold">
           Found {{ store.cardsList.length }} cards
         </div>
+
         <!-- CONTENITORE DELLE CARDS -->
         <AppLoader v-if="store.loading"/>
 
@@ -50,7 +81,10 @@ export default {
 
           </div>
         </div>
+        <!-- FINE CONTENITORE CARDS -->
+
       </div>
+
     </div>
   </main>
 </template>
