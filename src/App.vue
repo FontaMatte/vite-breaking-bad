@@ -28,6 +28,8 @@ export default {
 
         this.store.cardsList = response.data.data.slice(0,20);
 
+        this.store.loading = false;
+
       });
   }
 }

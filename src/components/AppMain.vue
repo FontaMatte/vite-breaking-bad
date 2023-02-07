@@ -1,4 +1,5 @@
 <script>
+import AppLoader from './AppLoader.vue'
 import AppCard from './AppCard.vue';
 import { store } from '../store.js';
 
@@ -11,12 +12,14 @@ export default {
     };
   },
   components: {
-    AppCard
+    AppCard,
+    AppLoader
   }
 }
 </script>
 
 <template>
+
   <main class="bg-warning">
     <div class="container py-3">
       <div class="row">
@@ -34,6 +37,8 @@ export default {
           Found {{ store.cardsList.length }} cards
         </div>
         <!-- CONTENITORE DELLE CARDS -->
+        <AppLoader v-if="store.loading"/>
+
         <div class="card-container">
           <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5">
             
