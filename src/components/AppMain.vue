@@ -29,14 +29,14 @@ export default {
         })
         .then((response) => {
 
-          if (this.store.selectValue != '') {
           this.store.cardsList = response.data.data.slice(0,50);
-          }
-          else {
-            this.getCards();
-          }
     
-        });
+        })
+        .catch((error) => {
+
+          this.getCards();
+
+        })
     },
     // FUNZIONE DI RICHIESTA CARTE API
     getCards() {
