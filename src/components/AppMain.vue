@@ -19,7 +19,7 @@ export default {
   methods: {
 
     // FUNZIONE PER FILTRARE LE CARTE
-    getCards() {
+    getCardsFiltered() {
       axios
 
         .get('https://db.ygoprodeck.com/api/v7/cardinfo.php', {
@@ -29,15 +29,18 @@ export default {
         })
         .then((response) => {
 
+          if (this.store.selectValue != '') {
           this.store.cardsList = response.data.data.slice(0,50);
+          }
+          else {
+            this.getCards();
+          }
     
         });
-    }
-  },
-  created() {
-   
-    // RICHIAMO LA LISTA DELLE CARTE
-    axios
+    },
+    // FUNZIONE DI RICHIESTA CARTE API
+    getCards() {
+      axios
 
         .get('https://db.ygoprodeck.com/api/v7/cardinfo.php')
         .then((response) => {
@@ -47,6 +50,11 @@ export default {
           this.store.loading = false;
     
         });
+    }
+  },
+  created() {
+   
+    this.getCards();
     
     // RICHIAMO LA LISTA DEGLI ARCHETYPE
     axios
@@ -72,7 +80,7 @@ export default {
           <select class="form-select w-80 mx-3" 
             aria-label="type select"
             v-model="store.selectValue"
-            @change="getCards()">
+            @change="getCardsFiltered()">
             <option selected value="">Select Archetype</option>
             <option :value="archetype.archetype_name" v-for="archetype in store.archetypesList">
               {{ archetype.archetype_name }}
